@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "89746793183",
+    "project_id": "salamgramquiz",
+    "storage_bucket": "salamgramquiz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89746793183:android:b5c222e012ab74c9123f6a",
+        "android_client_info": {
+          "package_name": "com.example.salamgramquiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "89746793183-uvg12tl936r870atrrc44eo650mtmqkm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.salamgramquiz",
+            "certificate_hash": "411ba86aefa7804ab27ba3321cefbf5e30f33613"
+          }
+        },
+        {
+          "client_id": "89746793183-eie3mkfhvmaodpomasgabuq12dtfqooq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTNCko3V6-YDPTDPCEWRwl5nIyH_Tw-yg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "89746793183-eie3mkfhvmaodpomasgabuq12dtfqooq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
