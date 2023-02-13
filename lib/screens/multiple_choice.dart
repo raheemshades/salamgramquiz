@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:salamgramquiz/screens/finish.dart';
-import 'package:salamgramquiz/widgets/islamic_quiz_screen_widget/Share_Question_dailog.dart';
+import 'package:salamgramquiz/screens/finish_screen.dart';
 
 import '../constrants.dart';
 import '../providers/multiplechoice.dart';
+import '../widgets/islamic_quiz_screen_widget/Share_Question_dailog.dart';
 
-class Multiplechoice extends StatefulWidget {
-  const Multiplechoice({
+class MultiplechoiceScreen extends StatefulWidget {
+  const MultiplechoiceScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<Multiplechoice> createState() => _MultiplechoiceState();
+  State<MultiplechoiceScreen> createState() => _MultiplechoiceState();
 }
 
-class _MultiplechoiceState extends State<Multiplechoice> {
+class _MultiplechoiceState extends State<MultiplechoiceScreen> {
   @override
   Widget build(BuildContext context) {
     // ChangeNotifierProvider(create: (_) => MultipleChoiceprovider());
@@ -120,45 +120,59 @@ class _MultiplechoiceState extends State<Multiplechoice> {
                 SizedBox(
                   height: height(context) * 0.02,
                 ),
-                Container(
-                  child: Expanded(
-                    child: ListView.builder(
-                        itemCount: multiprovider
-                            .multiplechoice[multiprovider.count - 1]
-                            .options!
-                            .length,
-                        itemBuilder: ((context, index) {
-                          return ListTile(
-                            title: Text(
-                              multiprovider
-                                  .multiplechoice[multiprovider.count - 1]
-                                  .options![index],
-                              textAlign: TextAlign.start,
-                              style: GoogleFonts.poppins(
-                                textStyle:
-                                    Theme.of(context).textTheme.headline4,
-                                fontSize: height(context) * 0.02,
-                                color: Colors.black,
-                                // fontWeight: FontWeight.bold
-                              ),
+                // Text(
+                //   "${multiprovider.answers[(multiprovider.count).toString()]}",
+                //   style: GoogleFonts.poppins(
+                //     textStyle: Theme.of(context).textTheme.headline4,
+                //     fontSize: height(context) * 0.02,
+                //     color: Colors.black,
+                //     // fontWeight: FontWeight.bold
+                //   ),
+                // ),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: multiprovider
+                          .multiplechoice[multiprovider.count - 1]
+                          .options!
+                          .length,
+                      itemBuilder: ((context, index) {
+                        return ListTile(
+                          title: Text(
+                            multiprovider
+                                .multiplechoice[multiprovider.count - 1]
+                                .options![index],
+                            textAlign: TextAlign.start,
+                            style: GoogleFonts.poppins(
+                              textStyle: Theme.of(context).textTheme.headline4,
+                              fontSize: height(context) * 0.02,
+                              color: Colors.black,
+                              // fontWeight: FontWeight.bold
                             ),
-                            leading: Radio(
-                              // activeColor: Colors.amber,
-                              fillColor: MaterialStateColor.resolveWith(
-                                  (states) =>
-                                      const Color.fromRGBO(0, 168, 241, 1)),
-                              value: multiprovider
-                                  .multiplechoice[multiprovider.count - 1]
-                                  .options![index],
-                              groupValue: multiprovider.chosenvalue,
-                              onChanged: (value) {
-                                multiprovider.chosenvalue = value.toString();
-                                setState(() {});
-                              },
-                            ),
-                          );
-                        })),
-                  ),
+                          ),
+                          leading: Radio(
+                            // activeColor: Colors.amber,
+                            fillColor: MaterialStateColor.resolveWith(
+                                (states) =>
+                                    const Color.fromRGBO(0, 168, 241, 1)),
+                            value: multiprovider
+                                .multiplechoice[multiprovider.count - 1]
+                                .options![index],
+                            groupValue: multiprovider
+                                .answers[multiprovider.count.toString()],
+                            //  multiprovider.chosenvalue,
+                            onChanged: (value) {
+                              multiprovider.chosenvalue = value.toString();
+                              multiprovider.answers.addAll({
+                                multiprovider
+                                    .multiplechoice[multiprovider.count - 1]
+                                    .id: multiprovider.chosenvalue
+                              });
+
+                              setState(() {});
+                            },
+                          ),
+                        );
+                      })),
                 ),
                 SizedBox(
                   height: height(context) * 0.06,
@@ -194,21 +208,24 @@ class _MultiplechoiceState extends State<Multiplechoice> {
                 ),
                 InkWell(
                   onTap: () {
-                    multiprovider.answers.addAll({
-                      multiprovider.multiplechoice[multiprovider.count - 1].id:
-                          multiprovider.chosenvalue
-                    });
-                    if (multiprovider.count.toString() !=
-                        multiprovider.questionlenght.toString()) {
-                      multiprovider.increment();
-                    } else {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Finish(
-                                  route: "multiple",
-                                )),
-                      );
+                    // multiprovider.answers.addAll({
+                    //   multiprovider.multiplechoice[multiprovider.count - 1].id:
+                    //       multiprovider.chosenvalue
+                    // });
+                    if (multiprovider.answers[multiprovider.count.toString()] !=
+                        null) {
+                      if (multiprovider.count.toString() !=
+                          multiprovider.questionlenght.toString()) {
+                        multiprovider.increment();
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FinishScreen(
+                                    route: "multiple",
+                                  )),
+                        );
+                      }
                     }
                   },
                   child: Container(
@@ -249,8 +266,9 @@ class _MultiplechoiceState extends State<Multiplechoice> {
                   onTap: () {
                     showDialog(
                         context: context,
-                        builder: (BuildContext context) =>
-                            const Sharequestiondailog());
+                        builder: (BuildContext context) => ShareQuesDailog(
+                              index: multiprovider.count - 1,
+                            ));
                   },
                   child: Container(
                     height: height(context) * 0.07,

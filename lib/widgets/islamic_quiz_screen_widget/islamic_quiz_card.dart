@@ -3,10 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../constrants.dart';
 
-class islamic_quiz_card extends StatelessWidget {
-  String title, imageurl;
-  Color col;
-  islamic_quiz_card({
+class IslamicQuizCard extends StatelessWidget {
+  final String title, imageurl;
+  final Color col;
+  const IslamicQuizCard({
     required this.title,
     required this.col,
     required this.imageurl,

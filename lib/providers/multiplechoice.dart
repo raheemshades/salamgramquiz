@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../database/multiquestion.dart';
-import '../model/multiplequestion.dart';
+import '../model/MQ_model.dart';
 
 class MultipleChoiceprovider extends ChangeNotifier {
   int _count = 1;
@@ -9,8 +9,10 @@ class MultipleChoiceprovider extends ChangeNotifier {
   double? score;
 
   int? questionlenght;
+  List<bool> trueansindex = [];
 
-  var multiplequestion;
+  List<Multiquestion> multiplequestion = <Multiquestion>[];
+
   String? chosenvalue;
   Map answers = {};
   List<Map> answer = [];
@@ -32,8 +34,7 @@ class MultipleChoiceprovider extends ChangeNotifier {
   Future<void> fetchdata() async {
     multiplechoice = await fectchmultiplequestion();
     questionlenght = multiplechoice.length;
-    print("from fetch $multiplequestion");
-    print("from fetch $questionlenght");
+
     notifyListeners();
   }
 
@@ -46,7 +47,7 @@ class MultipleChoiceprovider extends ChangeNotifier {
 
   void setscore(double value) {
     score = value;
-    print("score$score");
+
     notifyListeners();
   }
 }

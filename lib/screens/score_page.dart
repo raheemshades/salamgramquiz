@@ -1,23 +1,25 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: file_names
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter/material.dart';
+import 'package:salamgramquiz/screens/islamic_quiz.dart';
 import '../constrants.dart';
 import '../providers/multiplechoice.dart';
-import '../providers/truefalseprovider.dart';
+import '../providers/TF_Provider.dart';
 import '../widgets/islamic_quiz_screen_widget/Score_Share_dailog.dart';
 import '../widgets/islamic_quiz_screen_widget/custom_appbar.dart';
 
-class Score extends StatelessWidget {
-  String route;
-  Score({
+class Scorepage extends StatelessWidget {
+  final String route;
+  const Scorepage({
     required this.route,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final truefalse = Provider.of<truefalseprovider>(context);
+    final truefalse = Provider.of<TFProvider>(context);
     final multiple = Provider.of<MultipleChoiceprovider>(context);
 
     return SafeArea(
@@ -29,7 +31,7 @@ class Score extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                customappbar(
+                const CustomAppbar(
                   title: "Islamic Quiz",
                 ),
                 Container(
@@ -58,23 +60,77 @@ class Score extends StatelessWidget {
                                   ? truefalse.questionlenght
                                   : multiple.multiplechoice.length,
                               itemBuilder: ((context, index) {
-                                return Container(
-                                  height: height(context) * 0.06,
-                                  width: width(context) * 0.16,
-                                  decoration: const BoxDecoration(
-                                      color: Color.fromRGBO(0, 168, 241, 1),
-                                      shape: BoxShape.circle),
-                                  child: Text(
-                                    (index + 1).toString(),
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.poppins(
-                                      textStyle:
-                                          Theme.of(context).textTheme.headline4,
-                                      fontSize: height(context) * 0.04,
-                                      color: Colors.white,
-                                      // fontWeight: FontWeight.bold
+                                return Stack(
+                                  children: [
+                                    Container(
+                                      height: height(context) * 0.06,
+                                      width: width(context) * 0.16,
+                                      decoration: const BoxDecoration(
+                                          color: Color.fromRGBO(0, 168, 241, 1),
+                                          shape: BoxShape.circle),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            (index + 1).toString(),
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.poppins(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .headline4,
+                                              fontSize: height(context) * 0.04,
+                                              color: Colors.white,
+                                              // fontWeight: FontWeight.bold
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
+                                    Positioned(
+                                      bottom: 0,
+                                      right: 0,
+                                      child: Container(
+                                          height: height(context) * 0.04,
+                                          width: width(context) * 0.05,
+                                          decoration: BoxDecoration(
+                                              color: route == "truefalse"
+                                                  ? truefalse.trueansindex[
+                                                              index] ==
+                                                          true
+                                                      ? Colors.green
+                                                      : Colors.red
+                                                  : multiple.trueansindex[
+                                                              index] ==
+                                                          true
+                                                      ? Colors.green
+                                                      : Colors.red,
+                                              shape: BoxShape.circle),
+                                          child: route == "truefalse"
+                                              ? truefalse.trueansindex[index] ==
+                                                      true
+                                                  ? Icon(
+                                                      Icons.check,
+                                                      size: height(context) *
+                                                          0.02,
+                                                    )
+                                                  : Icon(
+                                                      Icons.close,
+                                                      size: height(context) *
+                                                          0.02,
+                                                    )
+                                              : multiple.trueansindex[index] ==
+                                                      true
+                                                  ? Icon(
+                                                      Icons.check,
+                                                      size: height(context) *
+                                                          0.02,
+                                                    )
+                                                  : Icon(
+                                                      Icons.close,
+                                                      size: height(context) *
+                                                          0.02,
+                                                    )),
+                                    ),
+                                  ],
                                 );
                               })),
                         ),
@@ -138,6 +194,18 @@ class Score extends StatelessWidget {
                               color: Colors.white,
                               fontWeight: FontWeight.w600),
                         ),
+                        SizedBox(
+                          height: height(context) * 0.03,
+                        ),
+                        Text(
+                          "Alhamduillah",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(
+                              textStyle: Theme.of(context).textTheme.headline4,
+                              fontSize: height(context) * 0.02,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600),
+                        ),
                       ],
                     ),
                   ),
@@ -147,7 +215,13 @@ class Score extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    context.read<MultipleChoiceprovider>().increment();
+                    multiple.answers.clear();
+                    multiple.setcount(1);
+                    truefalse.answers.clear();
+                    truefalse.setcount(1);
+
+                    Navigator.pop(context, (route) => true);
+                    Navigator.pop(context, (route) => true);
                   },
                   child: Container(
                     height: height(context) * 0.07,
@@ -182,9 +256,47 @@ class Score extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => const IslamicQuiz()),
+                        (Route<dynamic> route) => false);
+                  },
+                  child: Container(
+                    height: height(context) * 0.07,
+                    width: width(context) * 0.75,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomLeft,
+                        colors: [
+                          Color.fromRGBO(0, 171, 244, 1),
+                          Color.fromRGBO(0, 161, 233, 1),
+                          Color.fromRGBO(1, 104, 171, 1),
+                        ],
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "GoTo Main Page",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.poppins(
+                            textStyle: Theme.of(context).textTheme.headline4,
+                            fontSize: height(context) * 0.025,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: height(context) * 0.02,
+                ),
+                InkWell(
+                  onTap: () {
                     showDialog(
                         context: context,
-                        builder: (BuildContext context) => Dailogscoreshare(
+                        builder: (BuildContext context) => ScoreDailog(
                               score: route == "truefalse"
                                   ? "${(truefalse.score!).toDouble().toStringAsFixed(2)}%"
                                   : "${(multiple.score!).toDouble().toStringAsFixed(2)}%",

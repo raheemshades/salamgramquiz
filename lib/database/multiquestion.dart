@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:salamgramquiz/model/multiplequestion.dart';
+import 'package:salamgramquiz/model/MQ_model.dart';
 
 Future<List<Multiquestion>> fectchmultiplequestion() async {
   // List<Object?> multiplechoice;
@@ -8,14 +8,11 @@ Future<List<Multiquestion>> fectchmultiplequestion() async {
       .collection("multichoicequestoin")
       .get()
       .then((value) {
-    print("value$value");
     final QuerySnapshot<Map<String, dynamic>> data = value;
-    print("data${data.docs.length}");
 
     for (DocumentSnapshot<Map<String, dynamic>> element in data.docs) {
       multiplechoice.add(Multiquestion.fromDoc(element));
     }
-    print(multiplechoice);
   });
   return multiplechoice;
 }

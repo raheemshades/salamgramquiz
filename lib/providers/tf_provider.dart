@@ -1,18 +1,31 @@
-import 'package:flutter/cupertino.dart';
-import 'package:salamgramquiz/database/truefalse.dart';
-import 'package:salamgramquiz/model/truefalse_model.dart';
+// ignore_for_file: file_names
 
-class truefalseprovider extends ChangeNotifier {
+import 'package:flutter/material.dart';
+import 'package:salamgramquiz/database/truefalse.dart';
+import 'package:salamgramquiz/model/TF_model.dart';
+
+class TFProvider extends ChangeNotifier {
   int _count = 1;
   int questionlenght = 0;
   List<TrueFalse> truefalse = <TrueFalse>[];
-  var multiplequestion;
+  List<TrueFalse> ans = <TrueFalse>[];
+  List<bool> trueansindex = [];
+
+  List<TrueFalse> multiplequestion = <TrueFalse>[];
   List<Map> answer = [];
   double? score;
-  bool? trueorfalseans;
+  // bool? trueorfalseans;
   Map answers = {};
 
   int get count => _count;
+  void setcount(int val) {
+    _count = val;
+    notifyListeners();
+  }
+
+  List<Map> getanswer() {
+    return answer;
+  }
 
   void increment() {
     if (_count < questionlenght) {
@@ -37,13 +50,6 @@ class truefalseprovider extends ChangeNotifier {
     truefalse = await fectchtruefalsequestion();
     questionlenght = truefalse.length;
 
-    print("from fetch $multiplequestion");
-    print("from fetch $questionlenght");
-    notifyListeners();
-  }
-
-  void trueorfalse(bool ans) {
-    trueorfalseans = ans;
     notifyListeners();
   }
 }

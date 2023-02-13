@@ -1,15 +1,17 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../constrants.dart';
 
-class Dailogscoreshare extends StatelessWidget {
-  String score;
-  Dailogscoreshare({required this.score, super.key});
+class ScoreDailog extends StatelessWidget {
+  final String score;
+  const ScoreDailog({required this.score, super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final truefalse = Provider.of<truefalseprovider>(context);
+    // final truefalse = Provider.of<TFProvider>(context);
 
     return Dialog(
       elevation: 0,

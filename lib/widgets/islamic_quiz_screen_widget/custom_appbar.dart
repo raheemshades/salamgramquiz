@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../constrants.dart';
 
-class customappbar extends StatelessWidget {
-  String title;
-  customappbar({
+class CustomAppbar extends StatelessWidget {
+  final String title;
+  const CustomAppbar({
     required this.title,
     Key? key,
   }) : super(key: key);

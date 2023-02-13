@@ -1,19 +1,19 @@
 // ignore_for_file: file_names
 
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
 
 import '../../constrants.dart';
-import '../../providers/multiplechoice.dart';
+import '../../providers/tf_provider.dart';
 
-class ShareQuesDailog extends StatelessWidget {
+class ShareTF extends StatelessWidget {
+  const ShareTF({required this.index, super.key});
   final int index;
-  const ShareQuesDailog({required this.index, super.key});
 
   @override
   Widget build(BuildContext context) {
-    final multiprovider = Provider.of<MultipleChoiceprovider>(context);
+    final trueorfalse = Provider.of<TFProvider>(context);
 
     return Dialog(
       elevation: 0,
@@ -26,7 +26,7 @@ class ShareQuesDailog extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(15)),
-            height: height(context) * 0.3,
+            // height: height(context) * 0.3,
             width: width(context) * 0.75,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -83,7 +83,7 @@ class ShareQuesDailog extends StatelessWidget {
                   height: height(context) * 0.03,
                 ),
                 Text(
-                  multiprovider.multiplechoice[index].question,
+                  trueorfalse.truefalse[index].question,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.poppins(
                     textStyle: Theme.of(context).textTheme.headline4,
@@ -95,28 +95,33 @@ class ShareQuesDailog extends StatelessWidget {
                 SizedBox(
                   height: height(context) * 0.005,
                 ),
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: multiprovider
-                          .multiplechoice[multiprovider.count - 1]
-                          .options!
-                          .length,
-                      itemBuilder: ((context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Text(
-                            "${index + 1}. ${multiprovider.multiplechoice[multiprovider.count - 1].options![index]}",
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.ellipsis,
-                            style: GoogleFonts.poppins(
-                              textStyle: Theme.of(context).textTheme.headline4,
-                              fontSize: height(context) * 0.02,
-                              color: Colors.black,
-                              // fontWeight: FontWeight.bold
-                            ),
-                          ),
-                        );
-                      })),
+                Text(
+                  "TRUE",
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.poppins(
+                    textStyle: Theme.of(context).textTheme.headline4,
+                    fontSize: height(context) * 0.02,
+                    color: Colors.black,
+                    // fontWeight: FontWeight.bold
+                  ),
+                ),
+                SizedBox(
+                  height: height(context) * 0.005,
+                ),
+                Text(
+                  "FALSE",
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.poppins(
+                    textStyle: Theme.of(context).textTheme.headline4,
+                    fontSize: height(context) * 0.02,
+                    color: Colors.black,
+                    // fontWeight: FontWeight.bold
+                  ),
+                ),
+                SizedBox(
+                  height: height(context) * 0.03,
                 ),
               ],
             ),

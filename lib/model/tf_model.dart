@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TrueFalse {
@@ -15,7 +17,6 @@ class TrueFalse {
     };
   }
 
-  // ignore: sort_constructors_first
   factory TrueFalse.fromMap(Map<String, dynamic> map) {
     return TrueFalse(
       question: map['question'] ?? '',

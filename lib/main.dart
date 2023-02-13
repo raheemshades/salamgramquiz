@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:salamgramquiz/providers/TF_Provider.dart';
 import 'package:salamgramquiz/providers/multiplechoice.dart';
-import 'package:salamgramquiz/providers/truefalseprovider.dart';
-import 'package:salamgramquiz/screens/islamicquiz.dart';
+import 'package:salamgramquiz/screens/islamic_quiz.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +14,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MultipleChoiceprovider()),
-        ChangeNotifierProvider(create: (_) => truefalseprovider()),
+        ChangeNotifierProvider(create: (_) => TFProvider()),
       ],
       child: const MyApp(),
     ),
